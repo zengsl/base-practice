@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.practice.spring.mapper.ClassMapper">
+    <cache/>
+    <!--<cache-ref namespace="mapper.StudentMapper"/>-->
+    <update id="updateClassName">
+        UPDATE class
+        SET name = #{name}
+        WHERE id = #{id}
+    </update>
+
+    <select id="getClassByStudentId" parameterType="int" resultType="com.practice.spring.entity.Class">
+        SELECT class_id,class_name FROM classroom WHERE student_id = #{studentId}
+    </select>
+
+
+</mapper>
