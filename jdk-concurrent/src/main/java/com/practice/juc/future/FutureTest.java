@@ -12,7 +12,7 @@ import java.util.concurrent.*;
 public class FutureTest {
     public static void main(String[] args) throws Exception {
         ExecutorService executor = Executors.newSingleThreadExecutor();
-        Future<String> stringFuture = executor.submit(new Callable<String>() {
+        final Future<String> stringFuture = executor.submit(new Callable<String>() {
             @Override
             public String call() throws Exception {
                 Thread.sleep(2000_000);

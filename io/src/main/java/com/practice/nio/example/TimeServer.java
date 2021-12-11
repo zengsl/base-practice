@@ -53,9 +53,10 @@ public class TimeServer {
     private static int port = PORT;
 
     // Charset and encoder for US-ASCII
-    private static Charset charset = Charset.forName("US-ASCII");
+    private static Charset charset = Charset.forName("UTF-8");
+//    private static Charset charset = Charset.forName("US-ASCII");
     private static CharsetEncoder encoder = charset.newEncoder();
-
+    private static CharsetDecoder decoder = charset.newDecoder();
     // Direct byte buffer for writing
     private static ByteBuffer dbuf = ByteBuffer.allocateDirect(1024);
 
@@ -75,13 +76,18 @@ public class TimeServer {
     private static void serve(ServerSocketChannel ssc) throws IOException {
         SocketChannel sc = ssc.accept();
         try {
+            ByteBuffer readBuff = ByteBuffer.allocateDirect(1024);
+            sc.read(readBuff);
+            readBuff.flip();
+            CharBuffer cb = decoder.decode(readBuff);
+            System.out.println(cb);
             String now = new Date().toString();
             sc.write(encoder.encode(CharBuffer.wrap(now + "\r\n")));
             System.out.println(sc.socket().getInetAddress() + " : " + now);
-            sc.close();
+           // sc.close();
         } finally {
             // Make sure we close the channel (and hence the socket)
-            sc.close();
+            //sc.close();
         }
     }
 

@@ -16,8 +16,9 @@
         <module>algorithm</module>
         <module>spring-source</module>
         <module>mybatis-source</module>
-        <module>nio</module>
         <module>io</module>
+        <module>jdk-basic</module>
+        <module>jvm</module>
     </modules>
 
     <properties>

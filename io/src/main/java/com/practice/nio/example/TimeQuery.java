@@ -50,8 +50,11 @@ public class TimeQuery {
     private static int port = DAYTIME_PORT;
 
     // Charset and decoder for US-ASCII
-    private static Charset charset = Charset.forName("US-ASCII");
+//    private static Charset charset = Charset.forName("US-ASCII");
+    private static Charset charset = Charset.forName("UTF-8");
     private static CharsetDecoder decoder = charset.newDecoder();
+
+    private static CharsetEncoder encoder = charset.newEncoder();
 
     // Direct byte buffer for reading
     private static ByteBuffer dbuf = ByteBuffer.allocateDirect(1024);
@@ -68,7 +71,7 @@ public class TimeQuery {
             // Connect
             sc = SocketChannel.open();
             sc.connect(isa);
-
+            sc.write(encoder.encode(CharBuffer.wrap( "I'm coming\r\n")));
             // Read the time from the remote host.  For simplicity we assume
             // that the time comes back to us in a single packet, so that we
             // only need to read once.
